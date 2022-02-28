@@ -14,8 +14,17 @@ class UsersController extends Controller
 
         $users = User::all();
 
-        return $users;
-        
-        return view('users.index');
+        return view('users.index', compact('users'));
+    }
+
+    public function store(){
+        $user = new User;
+
+        $user->name = request ('name');
+        $user->email = request('email');
+        $user->password = bcrypt(request('password'));
+        $user->save();
+
+        return back();
     }
 }
